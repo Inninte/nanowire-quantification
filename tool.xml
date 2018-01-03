@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<run>
+    <tool>
+        <title>Nanowire SEM Image Analyzer</title>
+        <about>Computes order parameters for SEM images of nanowires.</about>
+        <command>python @tool/main.py @driver</command>
+    </tool>
+    <input>
+        <image id="value11">
+            <about>
+                <label>SEM Image</label>
+                <description>Upload the SEM image to be analyzed.</description>
+            </about>
+        </image>
+        <integer id="prunings">
+            <about>
+                <label>Prunings</label>
+                <description>The number of prunings to be applied to the morphological skeleton.</description>
+            </about>
+            <default>0</default>
+            <min>0</min>
+        </integer>
+        <integer id="block_size_width">
+            <about>
+                <label>Block Size Width</label>
+                <description>Set the width for the block size.</description>
+            </about>
+            <default>7</default>
+            <min>1</min>
+        </integer>
+        <integer id="block_size_length">
+            <about>
+                <label>Block Size Length</label>
+                <description>Set the length for the block size.</description>
+            </about>
+            <default>7</default>
+            <min>0</min>
+        </integer>
+        <choice id="threshold">
+            <about>
+                <label>Threshold</label>
+                <description>Choose the type of thresholding method.</description>
+            </about>
+            <option id="1">
+                <about>
+                    <label>Adaptive</label>
+                    <description>Adaptive thresholding deteremines the threshold value according to a localized area.  The size of the area is specified by the block size.</description>
+                </about>
+                <value>adaptive</value>
+            </option>
+            <option id="2">
+                <about>
+                    <label>Otsu</label>
+                    <description>Otsu thresholding determines the threshold value based off the histogram of the bimodal image.</description>
+                </about>
+                <value>otsu</value>
+            </option>
+            <default>adaptive</default>
+        </choice>
+        <integer id="cutoff">
+            <about>
+                <label>Cutoff</label>
+                <description>Determine the nanostructure length cutoff in pixels.</description>
+            </about>
+            <default>7</default>
+            <min>1</min>
+        </integer>
+        <integer id="order">
+            <about>
+                <label>Order</label>
+                <description>Determine the number of order parameters to compute.</description>
+            </about>
+            <default>50</default>
+            <min>1</min>
+        </integer>
+        <integer id="Ntheta">
+            <about>
+                <label>Ntheta</label>
+                <description>Determine number of ODF values to compute over the interval [-\pi, -\pi]</description>
+            </about>
+            <default>100</default>
+            <min>1</min>
+        </integer>
+        <integer id="nbins">
+            <about>
+                <label>nbins</label>
+                <description>Determine the number of bins for the alignment histograms.</description>
+            </about>
+            <default>49</default>
+            <min>1</min>
+        </integer>
+    </input>
+    <output>
+        <image id="greyImage">
+            <about>
+                <label>Grey Image</label>
+                <description>The greyscale image of the processed image.</description>
+            </about>
+        </image>
+        <image id="bwImage">
+            <about>
+                <label>BW Image</label>
+                <description>The BW Image of the image that was processed.</description>
+            </about>
+        </image>
+        <image id="skelImage">
+            <about>
+                <label>Skeleton Image</label>
+                <description>The skeleton of the image that was processed.</description>
+            </about>
+        </image>
+        <image id="graphUnweighted">
+            <about>
+                <label>p(theta) vs. theta Unweighted</label>
+                <description>The unweighted histogram of p(theta) vs. theta.</description>
+            </about>
+        </image>
+        <image id="graphWeighted">
+            <about>
+                <label>p(theta) vs. theta Weighted</label>
+                <description>The weighted histrogram of p(theta) vs. theta.</description>
+            </about>
+        </image>
+ <string id="nanowireData">
+            <about>
+                <label>Nanowire Data</label>
+                <description>A csv file containing data about nanowire length, wieghted S paramter, and unweighted S parameter.</description>
+            </about>
+			<filetype>.csv</filetype>
+        </string>
+        <string id="sUnweighted">
+            <about>
+                <label>S Unweighted</label>
+                <description>The unweighted S parameter.</description>
+            </about>
+        </string>
+        <string id="sWeighted">
+            <about>
+                <label>S Weighted</label>
+                <description>The weighted S paramter.</description>
+            </about>
+        </string>
+    </output>
+</run>
